@@ -9,9 +9,10 @@ fun main(){
     println("${Singleton.getObject()?.a} ${s1?.a} ${s2?.a} ${s1 === s2}")
 }
 
-class  Singleton(_a: Int){
+class  Singleton private constructor(_a: Int){
+
     companion object{
-      private var obj: Singleton? = null
+       private var obj: Singleton? = null
 
        fun getObject(a: Int? = null): Singleton? {//если обьект еще не проинициализирован то он будет проинициализирован
 

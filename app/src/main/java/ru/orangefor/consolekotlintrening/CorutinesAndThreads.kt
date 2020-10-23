@@ -4,25 +4,31 @@ import kotlinx.coroutines.delay
 import  kotlinx.coroutines.*
 import kotlin.concurrent.thread
 
-var a = 1
+
 fun main() {
     println("program starting")
-    a++
-    GlobalScope.launch {
+
+   val value1 = GlobalScope.async(Dispatchers.IO) {
         delay(1000)
-        a--
-        println("Hello $a")
+        "val_1"
+    }
+    val value2 = GlobalScope.async(Dispatchers.Unconfined) {
+        delay(2000)
+        "val_2"
     }
 
+
     runBlocking {
-        delay(2000)
+        println(value1.await())
+        println(value2.await())
     }
     println("Stop")
-    thread(start = true) {
-        runBlocking {
-            delay(2000)
-        }
-        println("again 2 seconds with new thread help")
-    }
+
+}
+
+suspend fun doAsync(){
+    println("do")
+    delay(1000)
+    println("1 second")
 }
 
